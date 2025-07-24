@@ -31,7 +31,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ['true', '1', 't']
 
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'finalyear-project-intelligentsys.onrender.com']
+ALLOWED_HOSTS = ['fyd-intelligenthealthsys.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 
