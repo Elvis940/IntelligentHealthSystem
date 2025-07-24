@@ -18,8 +18,14 @@ import os
 load_dotenv()
 
 
+import dj_database_url
+
 DATABASES = {
-    "default": dj_database_url.parse(os.getenv("DATABASE_URL"))
+    "default": dj_database_url.parse(
+        os.getenv("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True  # important for Render PostgreSQL
+    )
 }
 
 
@@ -82,21 +88,21 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'health_ai_viz.urls'
 
 # settings.py
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,  
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+#TEMPLATES = [
+#{
+#        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#        'DIRS': [BASE_DIR / 'templates'],
+#        'APP_DIRS': True,  
+#        'OPTIONS': {
+#            'context_processors': [
+#                'django.template.context_processors.debug',
+#                'django.template.context_processors.request',
+#               'django.contrib.auth.context_processors.auth',
+#                'django.contrib.messages.context_processors.messages',
+#            ],
+#       },
+#    },
+#]
 
 WSGI_APPLICATION = 'health_ai_viz.wsgi.application'
 
