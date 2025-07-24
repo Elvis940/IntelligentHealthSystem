@@ -1,0 +1,127 @@
+{% extends 'nursebase.html' %}
+{% block title %}Add Vital Sign{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      {% if messages %}
+      <div class="mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="card shadow-sm mt-4 bg-dark text-light">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Add Vital Sign</h4>
+        </div>
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="id_patient" class="form-label">Patient</label>
+                {{ form.patient }}
+                {% if form.patient.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.patient.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="id_disease" class="form-label">Disease</label>
+                {{ form.disease }}
+                {% if form.disease.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.disease.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="id_temperature" class="form-label">Temperature</label>
+                <div class="input-group">
+                  <input type="text" name="temperature" id="id_temperature" class="form-control" placeholder="38.5" value="{{ form.temperature.value|default_if_none:'' }}">
+                  <span class="input-group-text">°C</span>
+                </div>
+                {% if form.temperature.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.temperature.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="id_heart_rate" class="form-label">Heart Rate</label>
+                <div class="input-group">
+                  <input type="text" name="heart_rate" id="id_heart_rate" class="form-control" placeholder="90" value="{{ form.heart_rate.value|default_if_none:'' }}">
+                  <span class="input-group-text">bpm</span>
+                </div>
+                {% if form.heart_rate.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.heart_rate.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="id_respiratory_rate" class="form-label">Respiratory Rate</label>
+                <div class="input-group">
+                  <input type="text" name="respiratory_rate" id="id_respiratory_rate" class="form-control" placeholder="20" value="{{ form.respiratory_rate.value|default_if_none:'' }}">
+                  <span class="input-group-text">/min</span>
+                </div>
+                {% if form.respiratory_rate.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.respiratory_rate.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="id_blood_pressure" class="form-label">Blood Pressure</label>
+                <div class="input-group">
+                  <input type="text" name="blood_pressure" id="id_blood_pressure" class="form-control" placeholder="120/80" value="{{ form.blood_pressure.value|default_if_none:'' }}">
+                  <span class="input-group-text">mmHg</span>
+                </div>
+                {% if form.blood_pressure.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.blood_pressure.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_notes" class="form-label">Notes</label>
+              <textarea name="notes" id="id_notes" class="form-control" rows="3" placeholder="Additional notes...">{{ form.notes.value|default_if_none:'' }}</textarea>
+              {% if form.notes.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.notes.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-save me-1"></i> Save
+              </button>
+              <a href="{% url 'vital_signs_list' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

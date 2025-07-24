@@ -1,0 +1,12 @@
+<h2>Diagnosis Result</h2>
+{% if record %}
+<p><strong>User ID:</strong> {{ record.user_id }}</p>
+<p><strong>Symptoms:</strong> {{ record.symptoms }}</p>
+<p>
+  <strong>Disease:</strong> {{ record.disease.name if record.disease else "Not
+  identified" }}
+</p>
+<p><strong>Recommendations:</strong> {{ record.recommendations }}</p>
+{% else %}
+<p>No record found for this user.</p>
+{% endif %}

@@ -1,0 +1,52 @@
+[
+  {
+    "disease": "Diabetes",
+    "symptoms": ["Increased thirst", "Frequent urination", "Extreme hunger", "Unexplained weight loss", "Fatigue", "Blurred vision", "Slow healing wounds", "Tingling or numbness in hands and feet"],
+    "test_results": ["Fasting blood sugar > 126 mg/dL", "HbA1c > 6.5%", "Random blood sugar > 200 mg/dL"]
+  },
+  {
+    "disease": "Hypertension",
+    "symptoms": ["Headaches", "Shortness of breath", "Nosebleeds", "Dizziness", "Chest pain", "Blurred vision", "Fatigue", "Irregular heartbeat"],
+    "test_results": ["Systolic BP > 140 mmHg", "Diastolic BP > 90 mmHg"]
+  },
+  {
+    "disease": "Chronic Obstructive Pulmonary Disease (COPD)",
+    "symptoms": ["Chronic cough", "Shortness of breath", "Wheezing", "Chest tightness", "Frequent respiratory infections", "Fatigue", "Unintended weight loss", "Swelling in ankles, feet, or legs"],
+    "test_results": ["FEV1/FVC ratio < 0.7", "Reduced oxygen saturation"]
+  },
+  {
+    "disease": "Asthma",
+    "symptoms": ["Wheezing", "Coughing", "Shortness of breath", "Chest tightness", "Increased mucus production", "Difficulty sleeping due to breathing issues", "Frequent respiratory infections"],
+    "test_results": ["Positive bronchoprovocation test", "Spirometry shows reduced FEV1"]
+  },
+  {
+    "disease": "Heart Disease",
+    "symptoms": ["Chest pain", "Shortness of breath", "Fatigue", "Swelling in legs", "Irregular heartbeat", "Dizziness", "Nausea", "Sweating", "Pain in the jaw, neck, back, or arm"],
+    "test_results": ["Abnormal ECG", "Elevated Troponin levels", "Coronary angiography showing blockage"]
+  },
+  {
+    "disease": "Arthritis",
+    "symptoms": ["Joint pain", "Swelling", "Stiffness", "Reduced range of motion", "Redness around joints", "Tenderness", "Fatigue", "Morning stiffness lasting more than an hour"],
+    "test_results": ["Elevated C-reactive protein (CRP)", "X-ray showing joint degeneration"]
+  },
+  {
+    "disease": "Chronic Kidney Disease (CKD)",
+    "symptoms": ["Fatigue", "Swelling in feet", "Decreased urine output", "Shortness of breath", "Nausea", "Loss of appetite", "Muscle cramps", "Itchy skin", "High blood pressure"],
+    "test_results": ["GFR < 60 mL/min", "Elevated blood urea nitrogen (BUN)", "Elevated creatinine"]
+  },
+  {
+    "disease": "Cancer",
+    "symptoms": ["Unexplained weight loss", "Persistent fatigue", "Chronic pain", "Abnormal lumps", "Changes in skin appearance", "Night sweats", "Frequent infections", "Unexplained bleeding or bruising"],
+    "test_results": ["Biopsy confirmation", "Elevated tumor markers", "Abnormal imaging scans"]
+  },
+  {
+    "disease": "Alzheimer’s Disease",
+    "symptoms": ["Memory loss", "Confusion", "Difficulty completing tasks", "Personality changes", "Difficulty speaking or writing", "Poor judgment", "Getting lost in familiar places", "Mood swings", "Difficulty recognizing loved ones"],
+    "test_results": ["MRI showing brain atrophy", "Cognitive assessment scoring low"]
+  },
+  {
+    "disease": "Obesity",
+    "symptoms": ["Excess body fat", "Shortness of breath", "Joint pain", "Snoring or sleep apnea", "Low energy levels", "Frequent hunger", "Difficulty with physical activity", "Increased sweating"],
+    "test_results": ["BMI > 30", "Increased body fat percentage", "Elevated cholesterol levels"]
+  }
+]

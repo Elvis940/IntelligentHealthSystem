@@ -1,0 +1,204 @@
+{% extends 'adminbase.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #0f172a;
+    color: #e0e7ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .dashboard-card {
+    background: linear-gradient(145deg, #1e293b, #16243d);
+    border-radius: 1rem;
+    padding: 1.8rem 2rem;
+    color: #e0e7ff;
+    box-shadow:
+      4px 4px 15px rgba(0,0,0,0.6),
+      -4px -4px 15px rgba(40,56,95,0.7);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      6px 6px 25px rgba(0,0,0,0.7),
+      -6px -6px 25px rgba(40,56,95,0.8);
+  }
+
+  .dashboard-header {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #60a5fa; /* Tailwind blue-400 */
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .dashboard-icon {
+    font-size: 2.6rem;
+    color: #93c5fd; /* Tailwind blue-300 */
+  }
+
+  .stat-number {
+    font-weight: 700;
+    font-size: 2.1rem;
+    line-height: 1.1;
+  }
+
+  /* Card headers for charts */
+  .card-header {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow:
+      inset 0 -3px 8px rgba(255, 255, 255, 0.15);
+  }
+
+  .bg-primary {
+    background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+  }
+  .bg-info {
+    background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+  }
+  .bg-warning {
+    background: linear-gradient(135deg, #f59e0b, #b45309) !important;
+  }
+</style>
+
+<div class="container my-5">
+  <div class="row mb-5 gx-4 gy-4">
+    <!-- Stat Cards -->
+    <div class="col-md-3">
+      <div class="dashboard-card d-flex justify-content-between align-items-center">
+        <div>
+          <div class="dashboard-header">Total patients</div>
+          <div class="stat-number">{{ total_patients }}</div>
+        </div>
+        <i class="fas fa-users dashboard-icon"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="dashboard-card d-flex justify-content-between align-items-center">
+        <div>
+          <div class="dashboard-header">Active Users</div>
+          <div class="stat-number">{{ active_users }}</div>
+        </div>
+        <i class="fas fa-user-check dashboard-icon"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="dashboard-card d-flex justify-content-between align-items-center">
+        <div>
+          <div class="dashboard-header">Administrators</div>
+          <div class="stat-number">{{ admins }}</div>
+        </div>
+        <i class="fas fa-user-shield dashboard-icon"></i>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="dashboard-card d-flex justify-content-between align-items-center">
+        <div>
+          <div class="dashboard-header">Doctors</div>
+          <div class="stat-number">{{ doctors }}</div>
+        </div>
+        <i class="fas fa-user-md dashboard-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          Patients by Gender
+        </div>
+        <div class="card-body">
+          <div id="genderPlot" style="min-height: 350px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-info text-white">
+          Patients by Status
+        </div>
+        <div class="card-body">
+          <div id="statusPlot" style="min-height: 350px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-warning text-white">
+          Diagnoses by Disease
+        </div>
+        <div class="card-body">
+          <div id="diseasePlot" style="min-height: 350px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Plotly CDN -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  const genders = JSON.parse('{{ genders|escapejs }}');
+  const genderValues = JSON.parse('{{ gender_values|escapejs }}');
+
+  const statuses = JSON.parse('{{ statuses|escapejs }}');
+  const statusValues = JSON.parse('{{ status_values|escapejs }}');
+
+  const diseases = JSON.parse('{{ diseases|escapejs }}');
+  const diseaseValues = JSON.parse('{{ disease_values|escapejs }}');
+
+  // Gender Pie Chart - colors matching card icons
+  Plotly.newPlot('genderPlot', [{
+    values: genderValues,
+    labels: genders,
+    type: 'pie',
+    hole: 0.4,
+    marker: { colors: ['#93c5fd', '#f87171', '#60a5fa'] },
+    hoverinfo: 'label+percent+value',
+    textinfo: 'label+percent'
+  }], {
+    margin: { t: 10, b: 10, l: 10, r: 10 },
+    showlegend: true,
+    height: 350
+  }, {responsive: true});
+
+  // Status Bar Chart - blue (#60a5fa) matching Active Users
+  Plotly.newPlot('statusPlot', [{
+    x: statuses,
+    y: statusValues,
+    type: 'bar',
+    marker: { color: '#60a5fa' },
+    hoverinfo: 'x+y'
+  }], {
+    margin: { t: 30, b: 50, l: 50, r: 20 },
+    yaxis: { title: 'Number of Patients' },
+    xaxis: { title: 'Status' },
+    height: 350
+  }, {responsive: true});
+
+  // Disease Horizontal Bar - yellow (#fbbf24) matching Admins
+  Plotly.newPlot('diseasePlot', [{
+    x: diseaseValues,
+    y: diseases,
+    type: 'bar',
+    orientation: 'h',
+    marker: { color: '#fbbf24' },
+    hoverinfo: 'y+x'
+  }], {
+    margin: { t: 30, b: 50, l: 120, r: 20 },
+    xaxis: { title: 'Diagnosis Count' },
+    yaxis: { automargin: true },
+    height: 350
+  }, {responsive: true});
+</script>
+{% endblock %}

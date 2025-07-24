@@ -1,0 +1,300 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CognitiveCare - AI-driven Clinical Support</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --background-light: #ecf0f1;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        min-height: 100vh;
+        color: white;
+        position: relative;
+      }
+
+      .hero-waves {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+      }
+
+      .hero-content {
+        padding-top: 15vh;
+      }
+
+      /* Services Section */
+      .service-card {
+        border: none;
+        transition: transform 0.3s ease;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .service-icon {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+      }
+
+      /* How It Works */
+      .timeline {
+        position: relative;
+        padding: 2rem 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background: var(--secondary-color);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        margin-bottom: 3rem;
+      }
+
+      /* Research Section */
+      .research-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .research-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Navigation */
+      .navbar {
+        background: transparent;
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-link {
+        color: white;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .scrolled .nav-link {
+        color: var(--primary-color);
+      }
+
+      .btn-login {
+        background: var(--accent-color);
+        color: white;
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .btn-login:hover {
+        background: transparent;
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      /* Animations */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+      }
+
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <h3 class="text-center my-4">
+          <i class="fas fa-brain text-primary me-2"></i>Medical Cognitive AI
+        </h3>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#how-it-works">How It Works</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#research">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-login ms-3" href="{% url 'login' %}">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero d-flex align-items-center">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-content" data-aos="fade-right">
+            <h2 class="display-4 fw-bold mb-4">
+              CognitiveCare: AI-driven Clinical Decision Support
+            </h2>
+            <p class="lead mb-4">
+              Empowering healthcare professionals with advanced AI technology
+              for better patient outcomes.
+            </p>
+            <a href="{% url 'signup' %}" class="btn btn-light btn-lg"
+              >Get Started</a
+            >
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <img
+              src="https://www.impactqa.com/wp-content/uploads/2022/02/Artificial-Intelligence-AI-and-its-Assistance-in-Medical-Diagnosis-Blog.png"
+              class="img-fluid"
+              alt="AI Healthcare"
+              image
+            />
+          </div>
+        </div>
+      </div>
+      <div class="hero-waves">
+        <svg viewBox="0 0 1440 320">
+          <path
+            fill="#ffffff"
+            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+      <div class="container" data-aos="fade-up">
+        <h2 class="text-center mb-5">Our Services</h2>
+        <div class="row g-4">
+          <!-- Service cards -->
+          <div class="col-md-4">
+            <div class="service-card card h-100 p-4">
+              <div class="card-body text-center">
+                <i class="fas fa-brain service-icon mb-3"></i>
+                <h4>AI Diagnosis</h4>
+                <p>
+                  Advanced diagnostic support using machine learning algorithms.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Add more service cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="timeline">
+          <!-- Timeline items -->
+          <div class="timeline-item" data-aos="fade-right">
+            <h4>Data Input</h4>
+            <p>Healthcare professionals input patient data and symptoms.</p>
+          </div>
+          <!-- Add more timeline items -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-5 bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5">Latest Research</h2>
+        <div class="row g-4">
+          <!-- Research cards -->
+          <div class="col-md-4" data-aos="fade-up">
+            <div class="research-card card">
+              <img
+                src="https://www.impactqa.com/wp-content/uploads/2022/02/Artificial-Intelligence-AI-and-its-Assistance-in-Medical-Diagnosis-Blog.png"
+                class="card-img-top"
+                alt="Research Image"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Research on AI in Healthcare</h5>
+                <p class="card-text">
+                  Latest findings on the application of AI for diagnosis and
+                  treatment.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Add more research cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container text-center">
+        <p>&copy; 2025 CognitiveCare. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>

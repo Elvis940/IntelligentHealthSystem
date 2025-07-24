@@ -1,0 +1,36 @@
+{% extends 'nursebase.html' %}
+{% block title %}Confirm Delete Vital Sign{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="card shadow-sm mt-4 bg-dark text-light">
+        <div class="card-header bg-danger text-white">
+          <h4 class="mb-0">Confirm Delete</h4>
+        </div>
+        <div class="card-body">
+          <p>Are you sure you want to delete the vital sign record for <strong>{{ vital.patient }}</strong> with disease <strong>{{ vital.disease }}</strong>?</p>
+          
+          <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            This action cannot be undone.
+          </div>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'vital_signs_list' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Cancel
+              </a>
+              <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash me-1"></i> Delete
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

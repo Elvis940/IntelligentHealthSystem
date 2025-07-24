@@ -1,0 +1,353 @@
+{
+  "diseases": [
+    {
+      "name": "Bronchitis",
+      "symptoms": "cough with mucus, chest discomfort, fatigue",
+      "test_results": "Chest X-ray, sputum test",
+      "recommendation": "Rest, stay hydrated, and use bronchodilators or antibiotics if bacterial.",
+      "medicine": [
+        {"name": "Amoxicillin", "healing_rate": 85},
+        {"name": "Azithromycin", "healing_rate": 88},
+        {"name": "Salbutamol", "healing_rate": 75}
+      ]
+    },
+    {
+      "name": "Peptic Ulcer",
+      "symptoms": "stomach pain, bloating, nausea",
+      "test_results": "Endoscopy, H. pylori test",
+      "recommendation": "Use antacids, avoid NSAIDs, and treat H. pylori if present.",
+      "medicine": [
+        {"name": "Omeprazole", "healing_rate": 88},
+        {"name": "Clarithromycin", "healing_rate": 84},
+        {"name": "Amoxicillin", "healing_rate": 85}
+      ]
+    },
+    {
+      "name": "Urinary Tract Infection (UTI)",
+      "symptoms": "burning sensation during urination, frequent urge to urinate",
+      "test_results": "Urinalysis, urine culture",
+      "recommendation": "Use prescribed antibiotics and drink plenty of fluids.",
+      "medicine": [
+        {"name": "Nitrofurantoin", "healing_rate": 86},
+        {"name": "Ciprofloxacin", "healing_rate": 87},
+        {"name": "Trimethoprim-sulfamethoxazole", "healing_rate": 84}
+      ]
+    },
+    {
+      "name": "Hepatitis B",
+      "symptoms": "jaundice, abdominal pain, dark urine",
+      "test_results": "Hepatitis B surface antigen test",
+      "recommendation": "Antiviral medication if chronic, avoid alcohol, and monitor liver function.",
+      "medicine": [
+        {"name": "Tenofovir", "healing_rate": 83},
+        {"name": "Entecavir", "healing_rate": 82}
+      ]
+    },
+    {
+      "name": "Measles",
+      "symptoms": "fever, cough, rash, red eyes",
+      "test_results": "Measles IgM antibody test",
+      "recommendation": "Supportive care, isolate patient, and ensure vaccination.",
+      "medicine": [
+        {"name": "Paracetamol", "healing_rate": 70},
+        {"name": "Vitamin A", "healing_rate": 70},
+        {"name": "Oral rehydration salts", "healing_rate": 95}
+      ]
+    },
+    {
+      "name": "Chickenpox",
+      "symptoms": "itchy rash, fever, fatigue",
+      "test_results": "Clinical diagnosis, PCR test",
+      "recommendation": "Rest, avoid scratching, and use antivirals if severe.",
+      "medicine": [
+        {"name": "Acyclovir", "healing_rate": 88},
+        {"name": "Calamine lotion", "healing_rate": 65},
+        {"name": "Paracetamol", "healing_rate": 70}
+      ]
+    },
+    {
+      "name": "Meningitis",
+      "symptoms": "fever, neck stiffness, headache, confusion",
+      "test_results": "Lumbar puncture, blood culture",
+      "recommendation": "Hospitalization and treatment with antibiotics or antivirals.",
+      "medicine": [
+        {"name": "Ceftriaxone", "healing_rate": 90},
+        {"name": "Vancomycin", "healing_rate": 89},
+        {"name": "Dexamethasone", "healing_rate": 88}
+      ]
+    },
+    {
+      "name": "Tonsillitis",
+      "symptoms": "sore throat, swollen tonsils, difficulty swallowing",
+      "test_results": "Throat swab culture",
+      "recommendation": "Use antibiotics if bacterial and manage pain with supportive care.",
+      "medicine": [
+        {"name": "Amoxicillin", "healing_rate": 85},
+        {"name": "Ibuprofen", "healing_rate": 75},
+        {"name": "Paracetamol", "healing_rate": 70}
+      ]
+    },
+    {
+      "name": "Scabies",
+      "symptoms": "intense itching, skin rash with burrows",
+      "test_results": "Skin scraping microscopy",
+      "recommendation": "Apply prescribed scabicide cream and wash clothing in hot water.",
+      "medicine": [
+        {"name": "Permethrin cream", "healing_rate": 89},
+        {"name": "Ivermectin", "healing_rate": 86}
+      ]
+    },
+    {
+      "name": "Ringworm",
+      "symptoms": "itchy, circular red rash on skin",
+      "test_results": "Skin scraping, fungal culture",
+      "recommendation": "Use antifungal creams or oral medication.",
+      "medicine": [
+        {"name": "Clotrimazole", "healing_rate": 85},
+        {"name": "Terbinafine", "healing_rate": 87},
+        {"name": "Griseofulvin", "healing_rate": 80}
+      ]
+    },
+    {
+      "name": "Conjunctivitis (Pink Eye)",
+      "symptoms": "red, watery eyes, itching, discharge",
+      "test_results": "Clinical examination",
+      "recommendation": "Maintain hygiene, use antibiotic drops if bacterial, and avoid touching eyes.",
+      "medicine": [
+        {"name": "Chloramphenicol eye drops", "healing_rate": 84},
+        {"name": "Artificial tears", "healing_rate": 60}
+      ]
+    },
+    {
+      "name": "Otitis Media",
+      "symptoms": "ear pain, fever, hearing loss",
+      "test_results": "Otoscopy",
+      "recommendation": "Use pain relievers, antibiotics if bacterial, and monitor for complications.",
+      "medicine": [
+        {"name": "Amoxicillin", "healing_rate": 85},
+        {"name": "Ibuprofen", "healing_rate": 75},
+        {"name": "Paracetamol", "healing_rate": 70}
+      ]
+    },
+    {
+      "name": "Gastroenteritis",
+      "symptoms": "diarrhea, vomiting, abdominal cramps",
+      "test_results": "Stool test, clinical diagnosis",
+      "recommendation": "Rehydrate, rest, and use antibiotics only if bacterial.",
+      "medicine": [
+        {"name": "Oral rehydration salts", "healing_rate": 95},
+        {"name": "Metronidazole", "healing_rate": 80},
+        {"name": "Ciprofloxacin", "healing_rate": 87}
+      ]
+    },
+    {
+      "name": "Rheumatic Fever",
+      "symptoms": "fever, joint pain, rash, heart inflammation",
+      "test_results": "Throat swab, ECG, ASO titer",
+      "recommendation": "Use antibiotics and anti-inflammatory drugs, monitor heart health.",
+      "medicine": [
+        {"name": "Penicillin", "healing_rate": 83},
+        {"name": "Aspirin", "healing_rate": 72},
+        {"name": "Prednisone", "healing_rate": 85}
+      ]
+    },
+    {
+      "name": "Migraine",
+      "symptoms": "throbbing headache, nausea, sensitivity to light",
+      "test_results": "Clinical evaluation, CT/MRI if needed",
+      "recommendation": "Avoid triggers, use prescribed pain relievers or preventive medications.",
+      "medicine": [
+        {"name": "Sumatriptan", "healing_rate": 82},
+        {"name": "Ibuprofen", "healing_rate": 75},
+        {"name": "Propranolol", "healing_rate": 70}
+      ]
+    },
+    {
+      "name": "Epilepsy",
+      "symptoms": "seizures, confusion, loss of consciousness",
+      "test_results": "EEG, MRI/CT scan",
+      "recommendation": "Use antiepileptic drugs, avoid seizure triggers, and regular follow-up.",
+      "medicine": [
+        {"name": "Carbamazepine", "healing_rate": 75},
+        {"name": "Sodium Valproate", "healing_rate": 72},
+        {"name": "Lamotrigine", "healing_rate": 74}
+      ]
+    },
+    {
+      "name": "Depression",
+      "symptoms": "persistent sadness, fatigue, loss of interest",
+      "test_results": "Psychological evaluation",
+      "recommendation": "Therapy, antidepressant medication, support groups.",
+      "medicine": [
+        {"name": "Fluoxetine", "healing_rate": 60},
+        {"name": "Sertraline", "healing_rate": 62},
+        {"name": "Amitriptyline", "healing_rate": 58}
+      ]
+    },
+    {
+      "name": "Anxiety Disorder",
+      "symptoms": "nervousness, rapid heartbeat, restlessness",
+      "test_results": "Psychological assessment",
+      "recommendation": "Cognitive-behavioral therapy, relaxation techniques, medication if needed.",
+      "medicine": [
+        {"name": "Diazepam", "healing_rate": 65},
+        {"name": "Buspirone", "healing_rate": 63},
+        {"name": "Sertraline", "healing_rate": 62}
+      ]
+    },
+    {
+      "name": "Anemia",
+      "symptoms": "fatigue, weakness, pale skin",
+      "test_results": "Complete blood count (CBC), iron studies",
+      "recommendation": "Iron supplements, dietary changes, treat underlying causes.",
+      "medicine": [
+        {"name": "Ferrous sulfate", "healing_rate": 60},
+        {"name": "Folic acid", "healing_rate": 55},
+        {"name": "Vitamin B12", "healing_rate": 50}
+      ]
+    },
+    {
+      "name": "Goiter",
+      "symptoms": "swelling in neck, difficulty swallowing",
+      "test_results": "Thyroid function test, ultrasound",
+      "recommendation": "Iodine supplementation, thyroid hormone therapy, surgery if large.",
+      "medicine": [
+        {"name": "Levothyroxine", "healing_rate": 65},
+        {"name": "Potassium iodide", "healing_rate": 60}
+      ]
+    },
+    {
+      "name": "Hypertension",
+      "symptoms": "headaches, shortness of breath, nosebleeds",
+      "test_results": "Blood pressure measurement",
+      "recommendation": "Reduce salt intake, exercise daily, and take antihypertensive medication as prescribed.",
+      "medicine": [
+        {"name": "Amlodipine", "healing_rate": 50},
+        {"name": "Lisinopril", "healing_rate": 55},
+        {"name": "Hydrochlorothiazide", "healing_rate": 50}
+      ]
+    },
+    {
+      "name": "Diabetes Mellitus",
+      "symptoms": "frequent urination, increased thirst, unexplained weight loss",
+      "test_results": "Fasting blood sugar, HbA1c test",
+      "recommendation": "Maintain a balanced diet, exercise regularly, monitor blood sugar, and take insulin or oral medications.",
+      "medicine": [
+        {"name": "Metformin", "healing_rate": 45},
+        {"name": "Insulin", "healing_rate": 40},
+        {"name": "Glibenclamide", "healing_rate": 50}
+      ]
+    },
+    {
+      "name": "Asthma",
+      "symptoms": "shortness of breath, wheezing, chest tightness",
+      "test_results": "Spirometry, peak flow measurement",
+      "recommendation": "Avoid triggers, use inhalers as prescribed, and monitor symptoms.",
+      "medicine": [
+        {"name": "Salbutamol", "healing_rate": 90},
+        {"name": "Budesonide", "healing_rate": 82},
+        {"name": "Montelukast", "healing_rate": 78}
+      ]
+    },
+    {
+      "name": "Malaria",
+      "symptoms": "fever, chills, headache, vomiting",
+      "test_results": "Blood smear, rapid diagnostic test",
+      "recommendation": "Take antimalarial medications and use mosquito nets.",
+      "medicine": [
+        {"name": "Artemether-Lumefantrine", "healing_rate": 92},
+        {"name": "Quinine", "healing_rate": 80},
+        {"name": "Chloroquine", "healing_rate": 78}
+      ]
+    },
+    {
+      "name": "Pneumonia",
+      "symptoms": "cough, fever, chills, difficulty breathing",
+      "test_results": "Chest X-ray, sputum culture",
+      "recommendation": "Use antibiotics as prescribed, rest, and stay hydrated.",
+      "medicine": [
+        {"name": "Amoxicillin", "healing_rate": 85},
+        {"name": "Azithromycin", "healing_rate": 88},
+        {"name": "Ceftriaxone", "healing_rate": 90}
+      ]
+    },
+    {
+      "name": "Tuberculosis",
+      "symptoms": "persistent cough, weight loss, night sweats, fever",
+      "test_results": "Sputum smear microscopy, chest X-ray",
+      "recommendation": "Take a full course of anti-TB drugs as prescribed.",
+      "medicine": [
+        {"name": "Isoniazid", "healing_rate": 82},
+        {"name": "Rifampicin", "healing_rate": 85},
+        {"name": "Pyrazinamide", "healing_rate": 80},
+        {"name": "Ethambutol", "healing_rate": 78}
+      ]
+    },
+    {
+      "name": "HIV/AIDS",
+      "symptoms": "fever, weight loss, recurrent infections",
+      "test_results": "HIV antibody test, CD4 count",
+      "recommendation": "Start and adhere to antiretroviral therapy (ART).",
+      "medicine": [
+        {"name": "Tenofovir", "healing_rate": 83},
+        {"name": "Lamivudine", "healing_rate": 80},
+        {"name": "Efavirenz", "healing_rate": 81}
+      ]
+    },
+    {
+      "name": "COVID-19",
+      "symptoms": "fever, cough, loss of taste or smell, fatigue",
+      "test_results": "PCR test, antigen test",
+      "recommendation": "Isolate, take supportive care, and follow medical advice.",
+      "medicine": [
+        {"name": "Paracetamol", "healing_rate": 70},
+        {"name": "Azithromycin", "healing_rate": 88},
+        {"name": "Dexamethasone", "healing_rate": 88}
+      ]
+    },
+    {
+      "name": "Dysentery",
+      "symptoms": "bloody diarrhea, abdominal cramps, fever",
+      "test_results": "Stool culture",
+      "recommendation": "Maintain hygiene, drink clean water, and use antibiotics if bacterial.",
+      "medicine": [
+        {"name": "Metronidazole", "healing_rate": 80},
+        {"name": "Ciprofloxacin", "healing_rate": 87},
+        {"name": "Oral rehydration salts", "healing_rate": 95}
+      ]
+    },
+    {
+      "name": "Typhoid Fever",
+      "symptoms": "high fever, weakness, stomach pain, constipation or diarrhea",
+      "test_results": "Widal test, blood culture",
+      "recommendation": "Use antibiotics as prescribed, rest, and hydrate.",
+      "medicine": [
+        {"name": "Ceftriaxone", "healing_rate": 90},
+        {"name": "Azithromycin", "healing_rate": 88},
+        {"name": "Ciprofloxacin", "healing_rate": 87}
+      ]
+    },
+    {
+      "name": "Peptic Ulcer Disease",
+      "symptoms": "burning stomach pain, bloating, nausea",
+      "test_results": "Endoscopy, H. pylori test",
+      "recommendation": "Avoid NSAIDs, eat smaller meals, and take acid-reducing medication.",
+      "medicine": [
+        {"name": "Omeprazole", "healing_rate": 88},
+        {"name": "Amoxicillin", "healing_rate": 85},
+        {"name": "Clarithromycin", "healing_rate": 84}
+      ]
+    },
+    {
+      "name": "Pelvic Inflammatory Disease",
+      "symptoms": "lower abdominal pain, fever, abnormal discharge",
+      "test_results": "Pelvic exam, ultrasound, STI tests",
+      "recommendation": "Complete full antibiotic course.",
+      "medicine": [
+        {"name": "Ceftriaxone", "healing_rate": 90},
+        {"name": "Doxycycline", "healing_rate": 82},
+        {"name": "Metronidazole", "healing_rate": 80}
+      ]
+    }
+  ]
+}

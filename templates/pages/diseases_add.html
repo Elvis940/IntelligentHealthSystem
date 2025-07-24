@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+Add Disease
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">Add New Disease</div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <a href="{% url 'disease_list' %}" class="btn btn-secondary">Back</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

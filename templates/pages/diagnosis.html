@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %}Diagnosis - Medical AI{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <h1 class="h3 mb-4">AI Diagnosis</h1>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Symptom Analysis</h6>
+        </div>
+        <div class="card-body">
+          <form id="symptomForm">
+            <div class="mb-3">
+              <label class="form-label">Select Symptoms</label>
+              <select class="form-select" multiple>
+                <!-- Symptoms will be populated here -->
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">AI Results</h6>
+        </div>
+        <div class="card-body">
+          <div id="diagnosisResults">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

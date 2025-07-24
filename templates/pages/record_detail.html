@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  /* Print styles: show only #printArea content */
+  @media print {
+    body * {
+      visibility: hidden;  /* hide everything */
+    }
+    #printArea, #printArea * {
+      visibility: visible; /* show the print area */
+    }
+    #printArea {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background: white;
+    }
+  }
+</style>
+
+<div class="container my-5" id="printArea">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Medical Record Details</h3>
+      <div>
+        <button class="btn btn-light btn-sm me-2" onclick="window.print()">
+          <i class="fas fa-print"></i> Print
+        </button>
+        <button class="btn btn-light btn-sm" id="exportPdfBtn">
+          <i class="fas fa-file-pdf"></i> Export PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body" id="recordContent">
+      <h5 class="card-title mb-4">Patient Information</h5>
+      <p><strong>Patient ID:</strong> {{ record.patient_id }}</p>
+      <p><strong>Date:</strong> {{ record.created_at|date:"Y-m-d H:i" }}</p>
+
+      <hr>
+
+      <h5 class="card-title mb-3">Medical Details</h5>
+      <p><strong>Symptoms:</strong> {{ record.symptoms }}</p>
+      <p><strong>Diagnosis:</strong> {% if record.disease %} {{ record.disease.name }} {% else %} Not diagnosed {% endif %}</p>
+      <p><strong>Recommendations:</strong> {{ record.recommendations }}</p>
+
+      <hr>
+
+      <h5 class="card-title mb-3">Doctor Information</h5>
+      <p><strong>Doctor Name:</strong> Dr. John Doe</p>
+      <p><strong>Department:</strong> General Medicine</p>
+      <!-- Add more doctor details as needed -->
+    </div>
+
+    <div class="card-footer text-end">
+      <a href="{% url 'medical_records' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Records
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  document.getElementById('exportPdfBtn').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Better to export innerHTML styled text — here using text only for simplicity:
+    const content = document.getElementById('recordContent').innerText;
+
+    let y = 10;
+    const lineHeight = 10;
+    const pageHeight = doc.internal.pageSize.height;
+
+    content.split('\n').forEach(line => {
+      if (y > pageHeight - 20) {
+        doc.addPage();
+        y = 10;
+      }
+      doc.text(line.trim(), 10, y);
+      y += lineHeight;
+    });
+
+    doc.save('medical_record_{{ record.id }}.pdf');
+  });
+</script>
+
+{% endblock %}

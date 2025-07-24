@@ -1,0 +1,128 @@
+{% extends 'nursebase.html' %}
+{% block title %}Edit Vital Sign{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-sm mt-4 bg-dark text-light">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Edit Vital Sign</h4>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="patient" class="form-label">Patient</label>
+                <select name="patient" id="patient" class="form-select">
+                  {% for option in form.patient.field.queryset %}
+                    <option value="{{ option.pk }}" {% if form.patient.value == option.pk|stringformat:"s" %}selected{% endif %}>
+                      {{ option }}
+                    </option>
+                  {% endfor %}
+                </select>
+                {% if form.patient.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.patient.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="disease" class="form-label">Disease</label>
+                <select name="disease" id="disease" class="form-select">
+                  {% for option in form.disease.field.queryset %}
+                    <option value="{{ option.pk }}" {% if form.disease.value == option.pk|stringformat:"s" %}selected{% endif %}>
+                      {{ option }}
+                    </option>
+                  {% endfor %}
+                </select>
+                {% if form.disease.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.disease.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="temperature" class="form-label">Temperature</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="temperature" id="temperature" value="{{ form.temperature.value|default_if_none:'' }}">
+                  <span class="input-group-text">°C</span>
+                </div>
+                {% if form.temperature.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.temperature.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="heart_rate" class="form-label">Heart Rate</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="heart_rate" id="heart_rate" value="{{ form.heart_rate.value|default_if_none:'' }}">
+                  <span class="input-group-text">bpm</span>
+                </div>
+                {% if form.heart_rate.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.heart_rate.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="respiratory_rate" class="form-label">Respiratory Rate</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="respiratory_rate" id="respiratory_rate" value="{{ form.respiratory_rate.value|default_if_none:'' }}">
+                  <span class="input-group-text">/min</span>
+                </div>
+                {% if form.respiratory_rate.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.respiratory_rate.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6 col-lg-3 mb-3">
+                <label for="blood_pressure" class="form-label">Blood Pressure</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="blood_pressure" id="blood_pressure" value="{{ form.blood_pressure.value|default_if_none:'' }}">
+                  <span class="input-group-text">mmHg</span>
+                </div>
+                {% if form.blood_pressure.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.blood_pressure.errors.0 }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="notes" class="form-label">Notes</label>
+              <textarea class="form-control" name="notes" id="notes" rows="3">{{ form.notes.value|default_if_none:'' }}</textarea>
+              {% if form.notes.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.notes.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'vital_signs_list' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Cancel
+              </a>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

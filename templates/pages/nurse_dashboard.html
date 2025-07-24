@@ -1,0 +1,100 @@
+{% extends 'nursebase.html' %}
+{% block title %}Nurse Dashboard - Medical AI{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <h1 class="h3 mb-4">Welcome Nurse - Dashboard Overview</h1>
+
+  <!-- Summary Cards -->
+  <div class="row">
+    {% for card in summary_cards %}
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-{{ card.color }} shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-{{ card.color }} text-uppercase mb-1">{{ card.label }}</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ card.value }}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas {{ card.icon }} fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+
+  <!-- Latest Vital Signs for Latest Disease -->
+  {% if current_disease %}
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-success">Latest Vital Signs for {{ current_disease.name }}</h6>
+        </div>
+        <div class="card-body">
+          {% if latest_vital %}
+          <p><strong>Patient Name:</strong> {{ latest_vital.patient_name }}</p>
+            <p><strong>Temperature:</strong> {{ latest_vital.temperature }} °C</p>
+            <p><strong>Heart Rate:</strong> {{ latest_vital.heart_rate }} bpm</p>
+            <p><strong>Respiratory Rate:</strong> {{ latest_vital.respiratory_rate }} breaths/min</p>
+            <p><strong>Blood Pressure:</strong> {{ latest_vital.blood_pressure }} mmHg</p>
+            <p><strong>Notes:</strong> {{ latest_vital.notes }}</p>
+            <p><small><strong>Recorded at:</strong> {{ latest_vital.recorded_at }}</small></p>
+
+            <canvas id="vitalChart"></canvas>
+          {% else %}
+            <p>No vital signs recorded yet for this disease.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p>No diseases with vital signs available.</p>
+  {% endif %}
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+
+  // Latest vital signs chart
+  {% if latest_vital %}
+  const vitalCtx = document.getElementById('vitalChart').getContext('2d');
+  new Chart(vitalCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Temperature (°C)', 'Heart Rate (bpm)', 'Respiratory Rate (breaths/min)', 'Blood Pressure (mmHg)'],
+      datasets: [{
+        label: 'Latest Reading',
+        data: [
+          {{ latest_vital.temperature|default:"null" }},
+          {{ latest_vital.heart_rate|default:"null" }},
+          {{ latest_vital.respiratory_rate|default:"null" }},
+          {{ latest_vital.blood_pressure|default:"null" }}
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { beginAtZero: true } },
+      plugins: {
+        title: { display: true, text: 'Latest Vital Signs' },
+        tooltip: { mode: 'index', intersect: false }
+      }
+    }
+  });
+  {% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block title %}Reports - Medical AI{% endblock %} {%
+block content %}
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3">Medical Reports</h1>
+    <div class="btn-group">
+      <button class="btn btn-primary" id="generateReport">
+        <i class="fas fa-file-medical"></i> Generate Report
+      </button>
+      <button class="btn btn-secondary" id="exportReport">
+        <i class="fas fa-download"></i> Export
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Recent Reports</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Report ID</th>
+                  <th>Patient</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Report rows will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
