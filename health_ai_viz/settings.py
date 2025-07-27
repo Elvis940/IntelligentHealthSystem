@@ -36,7 +36,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ['true', '1', 't']
 
 
-ALLOWED_HOSTS = ['FYD-IntelligentHealthSys.onrender.com', '', '127.0.0.1']
+ALLOWED_HOSTS = ['FYD-IntelligentHealthSys.onrender.com', 'intelligenthealthsystem-1.onrender.com', '127.0.0.1']
 
 
 
