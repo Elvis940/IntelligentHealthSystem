@@ -7,3 +7,4 @@ class PatientRegistrationForm(forms.Form):
     age = forms.IntegerField(min_value=0, required=True)
     gender = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], required=True)
     status = forms.ChoiceField(choices=[('Active', 'Active'), ('Inactive', 'Inactive'), ('Pending', 'Pending')], required=True)
+    profile_picture = forms.ImageField(required=False)

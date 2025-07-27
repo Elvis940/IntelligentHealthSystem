@@ -30,6 +30,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
+              <th>Profile Picture</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -41,16 +42,23 @@
               <td>{{ user.email }}</td>
               <td>{{ user.role|default:"N/A" }}</td>
               <td>
+                {% if user.profile_picture %}
+                  <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
+                       class="rounded-circle" width="40" height="40">
+                {% else %}
+                  <span class="text-muted">No image</span>
+                {% endif %}
+              </td>
+              <td>
                 <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-primary" title="Edit">
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure?');">
                   <i class="fas fa-trash-alt"></i>
                 </a>
-                <!-- Add this new button -->
-  <a href="{% url 'view_user' user.id %}" class="btn btn-sm btn-info" title="View Details">
-    <i class="fas fa-eye"></i>
-  </a>
+                <a href="{% url 'view_user' user.id %}" class="btn btn-sm btn-info" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </a>
               </td>
             </tr>
             {% endfor %}

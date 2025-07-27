@@ -1,4 +1,5 @@
 from django.db import models
+import cloudinary.models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
@@ -37,7 +38,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50, blank=True)
-
+    profile_picture = cloudinary.models.CloudinaryField('image', blank=True, null=True)
+    
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
 
@@ -59,7 +61,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
-
+    
 class Profile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     image = models.CharField(max_length=255, blank=True, null=True)  # Will store Cloudinary URL

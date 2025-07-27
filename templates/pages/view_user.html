@@ -13,10 +13,13 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-4 text-center">
-          {% if user.profile.image %}
-            <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;">
+          {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
+                 class="rounded-circle mb-3" width="150" height="150" 
+                 style="object-fit: cover;">
           {% else %}
-            <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary text-white mb-3" style="width: 150px; height: 150px; margin: 0 auto;">
+            <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary text-white mb-3" 
+                 style="width: 150px; height: 150px; margin: 0 auto;">
               <i class="fas fa-user fa-3x"></i>
             </div>
           {% endif %}

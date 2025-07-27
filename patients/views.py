@@ -25,7 +25,7 @@ from django.db import IntegrityError
 
 def patients(request):
     if request.method == 'POST':
-        form = PatientRegistrationForm(request.POST)
+        form = PatientRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             patient_id = form.cleaned_data['patient_id']
             email = form.cleaned_data['email']
@@ -33,6 +33,7 @@ def patients(request):
             age = form.cleaned_data['age']
             gender = form.cleaned_data['gender']
             status = form.cleaned_data['status']
+            profile_picture = request.FILES.get('profile_picture')
 
             first_name, *last_parts = name.split(' ', 1)
             last_name = last_parts[0] if last_parts else ''
@@ -47,7 +48,7 @@ def patients(request):
                 return redirect('patients')
 
             try:
-                Patient.objects.create(
+                patient = Patient.objects.create(
                     patient_id=patient_id,
                     first_name=first_name,
                     last_name=last_name,
@@ -56,6 +57,11 @@ def patients(request):
                     gender=gender,
                     status=status,
                 )
+                
+                if profile_picture:
+                    patient.profile_picture = profile_picture
+                    patient.save()
+                
                 messages.success(request, f'Patient {first_name} added successfully.')
                 return redirect('patients')
 
@@ -63,7 +69,6 @@ def patients(request):
                 messages.error(request, f'Integrity error: {e}')
                 return redirect('patients')
         else:
-            # Form invalid
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
@@ -76,7 +81,58 @@ def patients(request):
 
 
 def add_patient(request):
-    form = PatientRegistrationForm()
+    if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            patient_id = form.cleaned_data['patient_id']
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['name']
+            age = form.cleaned_data['age']
+            gender = form.cleaned_data['gender']
+            status = form.cleaned_data['status']
+            profile_picture = request.FILES.get('profile_picture')
+
+            first_name, *last_parts = name.split(' ', 1)
+            last_name = last_parts[0] if last_parts else ''
+
+            # Check duplicates
+            if Patient.objects.filter(email=email).exists():
+                messages.error(request, f'Patient with email {email} already exists.')
+                return redirect('add_patient')
+
+            if Patient.objects.filter(patient_id=patient_id).exists():
+                messages.error(request, f'A patient with ID {patient_id} already exists.')
+                return redirect('add_patient')
+
+            try:
+                patient = Patient.objects.create(
+                    patient_id=patient_id,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    age=age,
+                    gender=gender,
+                    status=status,
+                )
+                
+                if profile_picture:
+                    patient.profile_picture = profile_picture
+                    patient.save()
+                
+                messages.success(request, f'Patient {first_name} added successfully.')
+                return redirect('patients')
+
+            except IntegrityError as e:
+                messages.error(request, f'Error creating patient: {str(e)}')
+                return redirect('add_patient')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+            return render(request, 'pages/add_patient.html', {'form': form})
+    else:
+        form = PatientRegistrationForm()
+    
     return render(request, 'pages/add_patient.html', {'form': form})
 
 
@@ -106,7 +162,21 @@ def edit_patient(request, pk):
         patient.age = request.POST['age']
         patient.gender = request.POST['gender']
         patient.status = request.POST['status']
+        
+        # Handle profile picture update
+        if 'profile_picture' in request.FILES:
+            try:
+                patient.profile_picture = request.FILES['profile_picture']
+            except Exception as e:
+                messages.warning(request, f"Profile picture update failed: {str(e)}")
+        
         patient.save()
         messages.success(request, "Patient updated successfully.")
         return redirect('patients')
     return render(request, 'pages/edit.html', {'patient': patient})
+
+@login_required
+@user_passes_test(is_doctor_or_admin)
+def view_patient(request, pk):
+    patient = get_object_or_404(Patient, pk=pk)
+    return render(request, 'pages/view_patient.html', {'patient': patient})

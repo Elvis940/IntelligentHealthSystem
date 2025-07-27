@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm
 from .models import Account
 from .models import Profile
+import cloudinary.uploader
 from django.contrib.auth import logout
 from django.contrib.auth import get_user_model, authenticate, login as auth_login
 
@@ -16,36 +17,33 @@ def hero(request):
 
 def learn_view(request):
     return render(request, 'accounts/learn.html')
-import cloudinary.uploader
+
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            password = form.cleaned_data['password1']
-            user = form.save(commit=False)
-            user.set_password(password)
-            user.save()
-            
-            # Handle image upload to Cloudinary
-            image = form.cleaned_data.get('image')
-            image_url = None
-            if image:
-                upload_result = cloudinary.uploader.upload(image)
-                image_url = upload_result['secure_url']
-            
-            # Create profile with image URL
-            Profile.objects.create(user=user, image=image_url)
-            
-            messages.success(request, f'Account created for {user.email}!')
-            return redirect('login') 
+            try:
+                user = form.save(commit=False)
+                
+                # Handle profile picture separately
+                if 'profile_picture' in request.FILES:
+                    try:
+                        user.profile_picture = request.FILES['profile_picture']
+                    except Exception as e:
+                        messages.warning(request, 'Profile picture upload failed, but account was created')
+                
+                user.save()
+                messages.success(request, 'Registration successful!')
+                return redirect('login')
+            except Exception as e:
+                messages.error(request, f'Error during registration: {str(e)}')
         else:
-            messages.error(request, 'Form is invalid. Please check the data and try again.')
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = UserRegistrationForm()
+    
     return render(request, 'accounts/signup.html', {'form': form})
-
-
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -131,4 +129,12 @@ def edit_profile(request):
 @user_passes_test(lambda u: u.is_superuser)
 def view_user(request, user_id):
     user = get_object_or_404(Account, id=user_id)
-    return render(request, 'pages/view_user.html', {'user': user})
+    
+    # Get or create profile if it doesn't exist
+    profile, created = Profile.objects.get_or_create(user=user)
+    
+    context = {
+        'user': user,
+        'profile': profile
+    }
+    return render(request, 'pages/view_user.html', context)

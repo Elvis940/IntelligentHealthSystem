@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Patient(models.Model):
     patient_id = models.CharField(max_length=50, unique=True)
@@ -8,6 +9,7 @@ class Patient(models.Model):
     age = models.PositiveIntegerField()
     gender = models.CharField(max_length=1)
     status = models.CharField(max_length=10, default='Active')
+    profile_picture = CloudinaryField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property

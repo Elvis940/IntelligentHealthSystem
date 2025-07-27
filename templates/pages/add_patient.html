@@ -1,69 +1,42 @@
-{% extends 'base.html' %} Add Patient - Medical AI {% block content %}
+{% extends 'base.html' %} 
+{% block title %}Add Patient - Medical AI{% endblock %}
+
+{% block content %}
 <div class="container mt-5">
   <h2>Add New Patient</h2>
   {% if messages %}
   <div class="mb-3">
     {% for message in messages %}
-    <div
-      class="alert alert-{{ message.tags }} alert-dismissible fade show"
-      role="alert"
-    >
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
       {{ message }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
   </div>
   {% endif %}
-  <form method="POST" action="{% url 'patients' %}">
+  
+  <form method="POST" enctype="multipart/form-data" action="{% url 'add_patient' %}">
     {% csrf_token %}
+    
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="patient_id" class="form-label">Patient ID</label>
-        <input
-          type="text"
-          class="form-control"
-          id="patient_id"
-          name="patient_id"
-          required
-        />
+        <input type="text" class="form-control" id="patient_id" name="patient_id" required>
       </div>
       <div class="col-md-6 mb-3">
         <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          required
-        />
+        <input type="email" class="form-control" id="email" name="email" required>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          name="name"
-          required
-        />
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
       </div>
       <div class="col-md-3 mb-3">
         <label for="age" class="form-label">Age</label>
-        <input
-          type="number"
-          class="form-control"
-          id="age"
-          name="age"
-          required
-        />
+        <input type="number" class="form-control" id="age" name="age" min="0" required>
       </div>
       <div class="col-md-3 mb-3">
         <label for="gender" class="form-label">Gender</label>
@@ -75,17 +48,44 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="status" class="form-label">Status</label>
-      <select class="form-select" id="status" name="status" required>
-        <option value="Active">Active</option>
-        <option value="Inactive">Inactive</option>
-        <option value="Pending">Pending</option>
-      </select>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status" required>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Pending">Pending</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="profile_picture" class="form-label">Profile Picture (Optional)</label>
+        <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*">
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Patient</button>
-    <a href="{% url 'patients' %}" class="btn btn-secondary ms-2">Cancel</a>
+    <div class="d-flex">
+      <button type="submit" class="btn btn-primary me-2">Save Patient</button>
+      <a href="{% url 'patients' %}" class="btn btn-secondary">Cancel</a>
+    </div>
   </form>
 </div>
+
+<script>
+// Client-side validation for profile picture
+document.getElementById('profile_picture').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB');
+            e.target.value = '';
+        }
+        // Validate file type
+        if (!['image/jpeg', 'image/png'].includes(file.type)) {
+            alert('Only JPEG and PNG images are allowed');
+            e.target.value = '';
+        }
+    }
+});
+</script>
 {% endblock %}

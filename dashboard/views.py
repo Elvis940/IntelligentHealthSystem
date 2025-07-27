@@ -3,11 +3,11 @@ from symptom_checker.models import Medicine, UserSymptom, Disease
 from django.shortcuts import get_object_or_404, render
 from symptom_checker.models import UserSymptom
 from django.contrib.auth import get_user_model
-
+from cloudinary.uploader import upload
 from django.shortcuts import render
 from django.db.models import Count
 import json
-
+from django.core.paginator import Paginator
 from patients.models import Patient
 from symptom_checker.models import UserSymptom
 # views.py
@@ -230,12 +230,30 @@ from django.contrib import messages
 
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
+    
     if request.method == 'POST':
+        # Update basic fields
         user.first_name = request.POST.get('first_name', user.first_name)
         user.last_name = request.POST.get('last_name', user.last_name)
         user.email = request.POST.get('email', user.email)
         user.role = request.POST.get('role', user.role)
         user.is_active = bool(request.POST.get('is_active'))
+        
+        # Handle profile picture upload
+        if 'profile_picture' in request.FILES:
+            try:
+                # Upload new picture to Cloudinary
+                upload_result = upload(
+                    request.FILES['profile_picture'],
+                    folder="profile_pictures",
+                    width=300,
+                    height=300,
+                    crop="fill"
+                )
+                user.profile_picture = upload_result['secure_url']
+            except Exception as e:
+                messages.warning(request, f"Profile picture update failed: {str(e)}")
+        
         user.save()
         messages.success(request, 'User updated successfully.')
         return redirect('manage_users')

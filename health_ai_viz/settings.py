@@ -18,16 +18,10 @@ import os
 load_dotenv()
 
 
-import dj_database_url
 
-DATABASES = {
-    "default": dj_database_url.parse(
-        os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True  # important for Render PostgreSQL
-    )
-}
 
+
+   
 
 # Cloudinary configuration
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,7 +36,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ['true', '1', 't']
 
 
-ALLOWED_HOSTS = ['fyd-intelligenthealthsys.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['FYD-IntelligentHealthSys.onrender.com', '', '127.0.0.1']
 
 
 
@@ -129,6 +123,8 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT', '5432'),       # fallback 5432
      }
  }
+
+DATABASES ["default"] = dj_database_url.parse("postgresql://healthsys_l0kw_user:ZHmQigi02mzuTtfuj92i1rCNWwzE0XSf@dpg-d238e6u3jp1c739llpqg-a.oregon-postgres.render.com/healthsys_l0kw")
 
 
 # Password validation
