@@ -58,11 +58,14 @@ def login(request):
 
             if user.check_password(password):
                 auth_login(request, user)
-
-                if user.role == "admin":
+                
+                # Convert role to lowercase for consistent comparison
+                role = user.role.lower() if user.role else None
+                
+                if role == "admin":
                     return redirect('admin_dashboard')
-                elif user.role == "doctor":
-                    return redirect('dashboard')
+                elif role == "doctor":
+                    return redirect('dashboard')  # Ensure this is your doctor dashboard URL
                 else:
                     return redirect('nurse_dashboard')
             else:
@@ -74,7 +77,6 @@ def login(request):
         return render(request, 'accounts/login.html')
 
     return render(request, 'accounts/login.html')
-
 
 
 @login_required(login_url='login')
